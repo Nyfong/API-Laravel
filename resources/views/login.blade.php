@@ -85,7 +85,7 @@
             if (response.ok) {
                 responseDiv.style.color = 'green';
                 responseDiv.textContent = 'Login successful! Token: ' + result.token;
-                // Optionally store token in localStorage: localStorage.setItem('token', result.token);
+
             } else {
                 responseDiv.style.color = 'red';
                 responseDiv.textContent = 'Error: ' + result.message;
