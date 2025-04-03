@@ -14,7 +14,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'username' => 'required|string|max:50|unique:users',
-            'email' => 'required|string|email|max:100|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
             'role' => 'required|in:admin,customer,warehouse_manager,staff',
         ]);
@@ -32,27 +32,26 @@ class AuthController extends Controller
         ], 201);
     }
 
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|string|email|max:100',
-            'password' => 'required|string|min:6',
-        ]);
-        dd($request->all());
-    
-        $user = User::where('email', $request->email)->first();
-    
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+  
+    public function login(Request $request){
+        $user = User::where('email',  $request->email)->first();
+          if (! $user || ! Hash::check($request->password, $user->password)) 
+      {
+            return response()->json([
+                'message' => ['Username or password incorrect'],
+            ]);
         }
-    
-        $token = $user->createToken('MyAppName')->plainTextToken;
-    
-        return response()->json([
-            'message' => 'Login successful',
-            'token' => $token,
-        ]);
-    }
-    
 
+        $user->tokens()->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User logged in successfully',
+            'name' => $user->name,
+            'token' => $user->createToken('APP_KEY')->plainTextToken,
+        ]);
+}
+
+    
+    
 }

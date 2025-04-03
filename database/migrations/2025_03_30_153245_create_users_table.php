@@ -8,7 +8,17 @@ use Illuminate\Support\Facades\DB;
 return new class extends Migration {
     public function up()
     {
-        
+        // CREATE TABLE users (
+        //     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+        //     username VARCHAR(50) UNIQUE NOT NULL,
+        //     email VARCHAR(100) UNIQUE NOT NULL,
+        //     password TEXT NOT NULL,
+        //     role VARCHAR(50) CHECK (role IN ('admin', 'customer', 'warehouse_manager', 'staff')),
+        //     first_name VARCHAR(50),
+        //     last_name VARCHAR(50),
+        //     address TEXT,
+        //     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        //     ); 
         DB::statement('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
 
         Schema::create('users', function (Blueprint $table) {

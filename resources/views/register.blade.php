@@ -77,7 +77,7 @@
 
     <script>
     document.getElementById('registerForm').addEventListener('submit', async function(e) {
-        e.preventDefault(); // Prevent default form submission
+        e.preventDefault();
 
         // Get form data
         const formData = {
@@ -107,11 +107,11 @@
             } else {
                 responseDiv.style.color = 'red';
                 if (result.errors) {
-                    // Display validation errors (e.g., "email has already been taken")
+
                     const errorMessages = Object.values(result.errors).flat().join(' ');
                     responseDiv.textContent = errorMessages;
                 } else {
-                    // Display generic or specific error message from the API
+
                     responseDiv.textContent = result.message || 'Registration failed.';
                 }
             }
